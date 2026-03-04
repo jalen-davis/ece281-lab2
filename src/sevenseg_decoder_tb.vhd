@@ -35,9 +35,37 @@ entity sevenseg_decoder_tb is
 --  Port ( );
 end sevenseg_decoder_tb;
 
-architecture Behavioral of sevenseg_decoder_tb is
+architecture test_bench of sevenseg_decoder_tb is
 
+    component sevenseg_decoder is
+        Port ( i_Hex : in STD_LOGIC_VECTOR (3 downto 0);
+               o_seg_n : out STD_LOGIC_VECTOR (6 downto 0));
+    end component;
+    
+    --i_Hex : in STD_LOGIC_VECTOR (3 downto 0)
+    --signal w_sw1 : std_logic := '0';
+    signal w_i_Hex : std_logic_vector(3 downto 0);
+    signal w_o_seg_n : std_logic_vector(6 downto 0);
+    
 begin
+	sevenseg_decoder_inst : sevenseg_decoder port map (
+		i_Hex => w_i_Hex,
+		o_seg_n => w_o_seg_n
+	);
 
+	test_process : process 
+	begin
 
-end Behavioral;
+		w_i_Hex <= x"1"; wait for 10 ns;
+            assert (w_o_seg_n = "1001111") report "error on x1" severity failure; 
+		w_i_Hex <= x"A"; wait for 10 ns;
+            assert (w_o_seg_n = "0001000") report "error on xA" severity failure; 
+		w_i_Hex <= x"C"; wait for 10 ns;
+            assert (w_o_seg_n = "1110010") report "error on xC" severity failure; 
+		w_i_Hex <= x"7"; wait for 10 ns;
+            assert (w_o_seg_n = "0001111") report "error on x7" severity failure; 
+            
+		wait; -- wait forever
+	end process;	
+	-- ---------------
+end test_bench;
