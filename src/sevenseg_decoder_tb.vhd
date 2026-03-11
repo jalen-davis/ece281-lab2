@@ -57,13 +57,13 @@ begin
 	begin
 
 		w_i_Hex <= x"1"; wait for 10 ns;
-            assert (w_o_seg_n = "1001111") report "error on x1" severity failure; 
+            assert (w_o_seg_n = "1111001") report "error on x1" severity failure; 
 		w_i_Hex <= x"A"; wait for 10 ns;
             assert (w_o_seg_n = "0001000") report "error on xA" severity failure; 
 		w_i_Hex <= x"C"; wait for 10 ns;
-            assert (w_o_seg_n = "1110010") report "error on xC" severity failure; 
+            assert (w_o_seg_n = "0100111") report "error on xC" severity failure; 
 		w_i_Hex <= x"7"; wait for 10 ns;
-            assert (w_o_seg_n = "0001111") report "error on x7" severity failure; 
+            assert (w_o_seg_n = "1111000") report "error on x7" severity failure; 
             
 		wait; -- wait forever
 	end process;	
